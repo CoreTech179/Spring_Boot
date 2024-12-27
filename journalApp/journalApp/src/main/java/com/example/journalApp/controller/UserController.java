@@ -52,7 +52,7 @@ public class UserController {
 
         userInDb.setUserName(user.getUserName());
         userInDb.setPassword(user.getPassword());
-        userServiceObj.saveData(userInDb);
+        userServiceObj.saveNewUserData(userInDb);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

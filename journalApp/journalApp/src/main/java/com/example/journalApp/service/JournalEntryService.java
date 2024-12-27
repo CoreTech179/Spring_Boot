@@ -27,7 +27,7 @@ public class JournalEntryService {
 //        First here we have save the journalEntry inside the database of a particular user
         // 2nd here we will get the id of the saved journalEntry of that particular user that is saved inside the database
         user.getUsersJournalEntries().add(getSavedJournalEntryId); // here we have saved the id of that entry inside the List
-        userServiceObj.saveData(user); // here we are saving that particular user everytime when a new entry is added inside the db for that user
+        userServiceObj.saveUser(user); // here we are saving that particular user everytime when a new entry is added inside the db for that user
     }
 
     public void updateExistingData(JournalEntry entry){
@@ -42,13 +42,28 @@ public class JournalEntryService {
         return journalEntryRepositoryObj.findById(id);
     }
 
-    public void deleteById(ObjectId id, String userName){
-        User user = userServiceObj.findByUsername(userName);
-        user.getUsersJournalEntries().removeIf(x -> x.getId().equals(id));
-//        this x --> x.getId().equals(id) means =  x --> it will iterate all the indivisual data inside the list
-//        x.getId().equals(id) --> from each data it will extract the id and check if it is equals to the provided id or not, if match delete or else skip
-        userServiceObj.saveData(user); // save the updated user after deletion
-        journalEntryRepositoryObj.deleteById(id); // then also delete that particular journalEntry from the journal_entries collection
+    @Transactional
+    public boolean deleteById(ObjectId id, String userName){
+
+        boolean removed = false;
+        try{
+            User user = userServiceObj.findByUsername(userName);
+            boolean removalId = user.getUsersJournalEntries().removeIf(x -> x.getId().equals(id));
+    //        this x --> x.getId().equals(id) means =  x --> it will iterate all the indivisual data inside the list
+    //        x.getId().equals(id) --> from each data it will extract the id and check if it is equals to the provided id or not, if match delete or else skip
+            if(removalId == true){
+                userServiceObj.saveUser(user); // save the updated user after deletion
+                journalEntryRepositoryObj.deleteById(id); // then also delete that particular journalEntry from the journal_entries collection
+            }
+
+            return removed;
+
+        } catch (Exception e) {
+
+            throw new RuntimeException("An error occurred while deleting a specific entry" + e);
+
+        }
+
     }
 
 }

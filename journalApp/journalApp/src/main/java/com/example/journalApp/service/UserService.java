@@ -19,10 +19,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepositoryObj;
 
-    public void saveData(User entry){
+    public void saveNewUserData(User entry){
         entry.setPassword(securePassword.encode(entry.getPassword()));
         entry.setRoles(List.of("USER"));
         userRepositoryObj.save(entry);
+    }
+
+    public void saveUser(User user){
+        userRepositoryObj.save(user);
     }
 
     public List<User> getAllData(){

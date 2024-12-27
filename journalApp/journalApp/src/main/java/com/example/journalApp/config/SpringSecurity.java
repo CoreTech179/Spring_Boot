@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SpringSecurity {
 
     @Autowired
-    UserDetailsServiceImplementation userDetailsServiceImplementationObj;
+    private UserDetailsServiceImplementation userDetailsServiceImplementationObj;
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -26,7 +26,8 @@ public class SpringSecurity {
         return http.authorizeHttpRequests(request -> request
                         .requestMatchers("/public/**").permitAll()
                         .requestMatchers("/journal/**", "/user/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
