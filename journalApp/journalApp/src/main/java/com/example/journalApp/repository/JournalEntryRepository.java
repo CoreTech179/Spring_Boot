@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface JournalEntryRepository extends MongoRepository<JournalEntry, ObjectId> {
     //    this interface will run queries from database
+//      MongoRepository<mongodb-collection-Name, primary-key-datatype>
 }
 
-// basically MongoRepository is a interface provided by SpringMongodb to perform standard CURD Operations
+// basically MongoRepository is an interface provided by SpringMongodb to perform standard CURD Operations

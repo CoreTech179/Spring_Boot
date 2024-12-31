@@ -9,6 +9,12 @@
 # Now here we observe that spring.data.mongodb is common, and we have to write it again and again for adding a new property
 # Therefore we can use yml file where we can write common part only for a single time and add configuration that is required that's it.
 
+# This file will run by default, but suppose we have 2 configurations, 1st for development phase and 2nd for production phase
+# Now if we want to activate the development phase configurations we have to write a single line of code on this file and nothing else.
+# i.e. spring:
+#         profiles:
+#             active: dev or prod
+
 #Syntax
 
 spring:

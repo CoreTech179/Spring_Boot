@@ -1,0 +1,45 @@
+<configuration>
+
+    <appender name="myConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+
+    </appender>
+
+    <appender name="myFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <file>
+            journalApp.log
+        </file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <fileNamePattern>journalApp-%d{yy-mm-dd_HH-mm}.%i.log</fileNamePattern> // Name of the file in this pattern
+            <maxFileSize>10MB</maxFileSize> // after reaching the file size of 10MB another file will be created
+            <maxHistory>5</maxHistory> // After reaching 5 files previous files will be deleted
+
+        </rollingPolicy>
+
+
+        <encoder>
+            <pattern>
+<!--                We can customise this also -->
+<!--                %n for new line-->
+<!--                %logger{36} is for the name of the logger which consist of 36 characters-->
+<!--                %-5level means the length of the characters should be 5 only and display the name of the logger-->
+<!--                {HH:mm:ss.SSS} is date and time format-->
+<!--                %msg means for message -->
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} ---> %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref = "myConsoleAppender" />
+        <appender-ref ref = "myFileAppender" />
+    </root>
+
+</configuration>
