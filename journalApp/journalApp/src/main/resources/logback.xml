@@ -18,8 +18,8 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 
             <fileNamePattern>journalApp-%d{yy-mm-dd_HH-mm}.%i.log</fileNamePattern> // Name of the file in this pattern
-            <maxFileSize>10MB</maxFileSize> // after reaching the file size of 10MB another file will be created
-            <maxHistory>5</maxHistory> // After reaching 5 files previous files will be deleted
+            <maxFileSize>5GB</maxFileSize> // after reaching the file size of 10MB another file will be created
+            <maxHistory>1</maxHistory> // After reaching 5 files previous files will be deleted
 
         </rollingPolicy>
 
