@@ -5,6 +5,8 @@ import com.example.journalApp.entity.User;
 import com.example.journalApp.repository.UserRepository;
 import com.example.journalApp.service.UserService;
 import com.example.journalApp.service.WeatherService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User APIs", description = "Get, Update and Delete the Data")
 public class UserController {
 
     @Autowired
@@ -48,6 +51,7 @@ public class UserController {
 //  if matched then update user or else throw forbidden
 
     @PutMapping
+    @Operation(summary = "Update Username")
     public ResponseEntity<?> updateUsername(@RequestBody User user){
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,6 +67,7 @@ public class UserController {
     }
 
     @DeleteMapping
+    @Operation(summary = "Delete Username")
     public ResponseEntity<?> deleteByUsername(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepositoryObj.deleteByUserName(authentication.getName());
@@ -70,6 +75,7 @@ public class UserController {
     }
 
     @GetMapping("/{city}")
+    @Operation(summary = "Get Weather API Response")
     public ResponseEntity<?> greetings(@PathVariable String city){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WeatherResponse getResponse =  weatherServiceObj.getWeather(city);
