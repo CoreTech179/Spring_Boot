@@ -4,6 +4,8 @@ import com.example.journalApp.entity.JournalEntry;
 import com.example.journalApp.entity.User;
 import com.example.journalApp.service.JournalEntryService;
 import com.example.journalApp.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/journal")
+@Tag(name = "Journal Entry Controller APIs")
 public class JournalEntryControllerV2 {
 
     @Autowired
@@ -33,6 +36,7 @@ public class JournalEntryControllerV2 {
 //    From 26/12/2024 we are removing giving the username on the path variable in every function.
 
     @GetMapping
+    @Operation(summary = "Get All Journal Entries of a User") // Description inside Swagger UI for understanding purpose
     public ResponseEntity<?> getAllDataOfUser(){
 
         Authentication gotValidUsernameAndPassword = SecurityContextHolder.getContext().getAuthentication();
@@ -50,6 +54,7 @@ public class JournalEntryControllerV2 {
     }
 
     @PostMapping
+    @Operation(summary = "Add any Journal Entry")
     public ResponseEntity<JournalEntry> createAndSendJournal(@RequestBody JournalEntry receiveData){
 
 //        Here a small flaw is there that is when we will create a new entry and try to save that entry and if some exception occurs at the
@@ -81,6 +86,7 @@ public class JournalEntryControllerV2 {
 //    Login mongodb atlas on brave
 
     @GetMapping("/id/{myId}")
+    @Operation(summary = "Get Journal Entry of a User by it's ID")
     public ResponseEntity<JournalEntry> getJournalById(@PathVariable ObjectId myId){
 
         Authentication gotValidUsernameAndPassword = SecurityContextHolder.getContext().getAuthentication();
@@ -107,6 +113,7 @@ public class JournalEntryControllerV2 {
 
 
     @DeleteMapping("/id/{myId}")
+    @Operation(summary = "Delete a Particular Journal Entry by it's ID")
     public ResponseEntity<?> deleteJournalById(@PathVariable ObjectId myId){
 //        Now here problem is that if we delete a journal from the journalEntries collection of mongodb then it will delete that journalEntry but
 //        the reference of that journalEntry is still stored at the users collection of mongodb
@@ -134,6 +141,7 @@ public class JournalEntryControllerV2 {
     }
 
     @PutMapping("/id/{myId}")
+    @Operation(summary = "Modify a particular Journal Entry By it's ID")
     public ResponseEntity<JournalEntry> modifyJournalById(@PathVariable ObjectId myId, @RequestBody JournalEntry newEntry){
 
         Authentication gotValidUsernameAndPassword = SecurityContextHolder.getContext().getAuthentication();

@@ -5,13 +5,15 @@ import com.example.journalApp.entity.User;
 import com.example.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+//@RestController
+@Service
 public class JournalEntryService {
 
     @Autowired

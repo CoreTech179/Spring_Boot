@@ -27,8 +27,33 @@ spring:
       uri: mongodb+srv://kingKaiser:c2VB6to49oVIS3q4@cluster0.zaaeb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: journaldb # These are the properties under "spring.data.mongodb"
       auto-index-creation: true
+  mail:
+    host: smtp.gmail.com # Host means the server that handles your gmail
+    port: 587
+    username: deepmicrosoft2022@gmail.com
+    password: gakb yklp nfjb wqwb # This key is generated from app passwords in gmail security
+    properties:
+      mail:
+        smtp:
+          auth: true # This property states that we need to pass a username and a password for authentication.
+          starttls: # This property is used to secure or encrypt the data while transferring & the full form is "Start transport layer security"
+            enable: true
+  redis:
+    host: redis-10283.crce179.ap-south-1-1.ec2.redns.redis-cloud.com:10283
+    port: 10283
+    password: mpKJpIhjKmuu3vFO5TTGH0gtKEqnTjDP
+#    host: localhost
+#    port: 6379
+# Now we will not manage the redis in memory cache by myself, I will leave this to cloud. From 31/01/2025
+
+
 
 server:
   port: 8080
   servlet:
     context-path: /journalApplication
+
+
+weather:
+  api:
+    key: b724587cea7c180932ab609b6a2c3c26
